@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import ThemeProvider from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Som-Connect",
@@ -13,10 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <Navbar />
-        <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
+        <ThemeProvider>
+          <Navbar />
+          <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
