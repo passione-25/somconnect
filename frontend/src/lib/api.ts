@@ -1,4 +1,7 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
+const isServer = typeof window === "undefined";
+const API_BASE = isServer
+  ? (process.env.API_URL_INTERNAL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api")
+  : (process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api");
 
 export interface SubPage {
   id: number;
