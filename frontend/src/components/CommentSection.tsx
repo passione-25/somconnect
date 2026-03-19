@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createComment, type Comment } from "@/lib/api";
+import { createComment, voteComment, type Comment } from "@/lib/api";
 
 interface CommentSectionProps {
   postId: number;
@@ -44,15 +44,31 @@ function CommentItem({
   depth,
   postId,
   onCommentAdded,
+  onVoteChanged,
 }: {
   comment: CommentNode;
   depth: number;
   postId: number;
   onCommentAdded: (comment: Comment) => void;
+  onVoteChanged: (commentId: number, newCount: number) => void;
 }) {
   const [replying, setReplying] = useState(false);
   const [replyBody, setReplyBody] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [voting, setVoting] = useState(false);
+
+  const handleVote = async (value: 1 | -1) => {
+    if (voting) return;
+    setVoting(true);
+    try {
+      const res = await voteComment(comment.id, value);
+      onVoteChanged(comment.id, res.vote_count);
+    } catch {
+      // silently ignore vote errors
+    } finally {
+      setVoting(false);
+    }
+  };
 
   const handleReply = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,18 +92,42 @@ function CommentItem({
 
   return (
     <div className={depth > 0 ? "ml-6 border-l-2 border-gray-200 pl-4 dark:border-gray-700" : ""}>
-      <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-        <p className="text-sm text-foreground whitespace-pre-wrap">{comment.body}</p>
-        <div className="mt-2 flex items-center gap-3">
-          <time className="text-xs text-gray-500">{timeAgo(comment.created_at)}</time>
+      <div className="flex gap-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+        <div className="flex flex-col items-center gap-0.5 text-xs">
           <button
-            type="button"
-            onClick={() => setReplying(!replying)}
-            className="text-xs font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
+            onClick={() => handleVote(1)}
+            disabled={voting}
+            className="rounded p-0.5 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition-colors text-gray-500 hover:text-indigo-600 disabled:opacity-50"
+            aria-label="Upvote comment"
           >
-            {replying ? "Cancel" : "Reply"}
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 3l7 8H3l7-8z" />
+            </svg>
+          </button>
+          <span className="font-semibold text-foreground min-w-[2ch] text-center">{comment.vote_count}</span>
+          <button
+            onClick={() => handleVote(-1)}
+            disabled={voting}
+            className="rounded p-0.5 hover:bg-red-100 dark:hover:bg-red-900 transition-colors text-gray-500 hover:text-red-600 disabled:opacity-50"
+            aria-label="Downvote comment"
+          >
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 17l-7-8h14l-7 8z" />
+            </svg>
           </button>
         </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm text-foreground whitespace-pre-wrap">{comment.body}</p>
+          <div className="mt-2 flex items-center gap-3">
+            <time className="text-xs text-gray-500">{timeAgo(comment.created_at)}</time>
+            <button
+              type="button"
+              onClick={() => setReplying(!replying)}
+              className="text-xs font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
+            >
+              {replying ? "Cancel" : "Reply"}
+            </button>
+          </div>
 
         {replying && (
           <form onSubmit={handleReply} className="mt-3">
@@ -107,6 +147,7 @@ function CommentItem({
             </button>
           </form>
         )}
+        </div>
       </div>
 
       {comment.children.length > 0 && (
@@ -118,6 +159,7 @@ function CommentItem({
               depth={depth + 1}
               postId={postId}
               onCommentAdded={onCommentAdded}
+              onVoteChanged={onVoteChanged}
             />
           ))}
         </div>
@@ -133,6 +175,12 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
 
   const handleCommentAdded = (comment: Comment) => {
     setComments((prev) => [...prev, comment]);
+  };
+
+  const handleVoteChanged = (commentId: number, newCount: number) => {
+    setComments((prev) =>
+      prev.map((c) => (c.id === commentId ? { ...c, vote_count: newCount } : c))
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -181,6 +229,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
             depth={0}
             postId={postId}
             onCommentAdded={handleCommentAdded}
+            onVoteChanged={handleVoteChanged}
           />
         ))}
         {comments.length === 0 && (

@@ -26,6 +26,7 @@ export interface Comment {
   body: string;
   post_id: number;
   parent_comment_id: number | null;
+  vote_count: number;
   created_at: string;
 }
 
@@ -65,4 +66,10 @@ export const vote = (postId: number, value: 1 | -1) =>
   apiFetch<{ vote_count: number }>("/votes", {
     method: "POST",
     body: JSON.stringify({ post_id: postId, value }),
+  });
+
+export const voteComment = (commentId: number, value: 1 | -1) =>
+  apiFetch<{ vote_count: number }>("/votes/comment", {
+    method: "POST",
+    body: JSON.stringify({ comment_id: commentId, value }),
   });

@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS comments (
   body TEXT NOT NULL,
   post_id INTEGER NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
   parent_comment_id INTEGER REFERENCES comments(id) ON DELETE CASCADE,
+  vote_count INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -37,6 +38,17 @@ CREATE TABLE IF NOT EXISTS votes (
 CREATE INDEX IF NOT EXISTS idx_posts_sub_page_id ON posts(sub_page_id);
 CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments(post_id);
 CREATE INDEX IF NOT EXISTS idx_votes_post_id ON votes(post_id);
+
+CREATE TABLE IF NOT EXISTS comment_votes (
+  id SERIAL PRIMARY KEY,
+  comment_id INTEGER NOT NULL REFERENCES comments(id) ON DELETE CASCADE,
+  value SMALLINT NOT NULL CHECK (value IN (-1, 1)),
+  voter_ip VARCHAR(45) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(comment_id, voter_ip)
+);
+
+CREATE INDEX IF NOT EXISTS idx_comment_votes_comment_id ON comment_votes(comment_id);
 `;
 
 async function migrate() {
