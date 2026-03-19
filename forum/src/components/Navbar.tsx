@@ -15,7 +15,7 @@ export default function Navbar() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white text-sm font-bold">
             SC
           </span>
-          <span className="text-foreground">Som-Connect</span>
+          <span className="text-foreground">SomConnect Forum</span>
         </Link>
 
         <div className="flex items-center gap-4 text-sm">
