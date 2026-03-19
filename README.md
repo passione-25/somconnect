@@ -1,34 +1,65 @@
-# Som-Connect
+# SomConnect
 
-A modern community forum inspired by Reddit, built with **Next.js**, **Express.js**, and **PostgreSQL**. Instead of "subreddits", Som-Connect uses **Sub-pages** as community spaces.
+A multi-site platform connecting Somali professionals worldwide, built with **Next.js**, **Express.js**, and **PostgreSQL**.
 
-![Som-Connect Home Page](https://github.com/user-attachments/assets/46c4af27-4dfe-4fa3-9964-ddceb9a48c9c)
+## Platform Overview
+
+SomConnect consists of three interconnected websites, each running in its own container:
+
+| Site | Port | Description |
+| ---- | ---- | ----------- |
+| **SomConnect Main** | 3000 | Landing page — introduces the platform and links to other sites |
+| **SomConnect Find** | 3002 | Listing directory — jobs, businesses, and networking events |
+| **SomConnect Forum** | 3003 | Community forum — sub-pages, posts, comments, and voting |
+| **Backend API** | 3001 | Express.js REST API serving the Forum |
+
+A shared top navigation bar on every site allows users to switch between Main, Find, and Forum.
 
 ## Features
 
-- **Sub-pages** — Create and browse topic-based community spaces (similar to subreddits)
+### SomConnect Main (Landing Page)
+- Hero section with platform introduction
+- Feature highlights (Jobs, Businesses, Networking)
+- Community stats and "How It Works" guide
+
+### SomConnect Find (Listing Directory)
+- **Jobs** — Browse job listings from Somali-owned companies
+- **Businesses** — Discover and support Somali-owned businesses
+- **Events** — Find networking events, conferences, and gatherings
+- Search and category filtering
+
+### SomConnect Forum (Community)
+- **Sub-pages** — Create and browse topic-based community spaces
 - **Posts** — Share content within sub-pages with titles and body text
 - **Comments** — Discuss posts with a comment system
 - **Voting** — Upvote and downvote posts
-- **Modern UI** — Clean, responsive design with Tailwind CSS
 - **No authentication required** — Open access for quick community building
 
 ## Tech Stack
 
-| Layer    | Technology          |
-| -------- | ------------------- |
+| Layer    | Technology                         |
+| -------- | ---------------------------------- |
 | Frontend | Next.js 16, React 19, Tailwind CSS |
-| Backend  | Express.js 5, Node.js              |
-| Database | PostgreSQL 16                       |
+| Backend  | Express.js 5, Node.js             |
+| Database | PostgreSQL 17                      |
+| Docker   | Multi-container with Docker Compose |
 
 ## Project Structure
 
 ```
 somconnect/
-├── frontend/          # Next.js application
+├── main/              # SomConnect Main — landing page
 │   └── src/
 │       ├── app/       # App Router pages
-│       ├── components/# Reusable UI components
+│       └── components/# UI components (SiteNav, ThemeProvider)
+├── find/              # SomConnect Find — listing directory
+│   └── src/
+│       ├── app/       # App Router pages (jobs, businesses, events)
+│       └── components/# UI components (Navbar, SiteNav, ThemeProvider)
+├── forum/             # SomConnect Forum — community forum
+│   └── src/
+│       ├── app/       # App Router pages (posts, sub-pages)
+│       ├── components/# UI components (Navbar, SiteNav, PostCard, etc.)
 │       └── lib/       # API client utilities
 ├── backend/           # Express.js API server
 │   └── src/
@@ -36,26 +67,40 @@ somconnect/
 │       ├── routes/    # API route handlers
 │       ├── index.js   # Server entry point
 │       └── seed.js    # Sample data seeder
+├── docker-compose.yml # Multi-container orchestration
 ├── RESEARCH.md        # Inspiration research & SWOT analysis
 └── README.md
 ```
 
 ## Getting Started
 
-### Prerequisites
+### Option 1: Docker Compose (Recommended)
+
+```bash
+docker compose up --build
+```
+
+This starts all services:
+- **SomConnect Main** → [http://localhost:3000](http://localhost:3000)
+- **SomConnect Find** → [http://localhost:3002](http://localhost:3002)
+- **SomConnect Forum** → [http://localhost:3003](http://localhost:3003)
+- **Backend API** → [http://localhost:3001](http://localhost:3001)
+
+### Option 2: Local Development
+
+#### Prerequisites
 
 - Node.js 18+
 - PostgreSQL 14+
 
-### 1. Database Setup
+#### 1. Database Setup
 
 ```bash
-# Create the database and user
 sudo -u postgres psql -c "CREATE USER somconnect WITH PASSWORD 'somconnect';"
 sudo -u postgres psql -c "CREATE DATABASE somconnect OWNER somconnect;"
 ```
 
-### 2. Backend Setup
+#### 2. Backend Setup
 
 ```bash
 cd backend
@@ -65,15 +110,29 @@ npm run seed            # Creates tables and inserts sample data
 npm run dev             # Starts the API on http://localhost:3001
 ```
 
-### 3. Frontend Setup
+#### 3. Forum Setup
 
 ```bash
-cd frontend
+cd forum
 npm install
-npm run dev             # Starts the UI on http://localhost:3000
+npm run dev             # Starts on http://localhost:3000 (or set PORT=3003)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+#### 4. Main Site Setup
+
+```bash
+cd main
+npm install
+npm run dev             # Starts on http://localhost:3000
+```
+
+#### 5. Find Site Setup
+
+```bash
+cd find
+npm install
+npm run dev             # Starts on http://localhost:3000 (or set PORT=3002)
+```
 
 ## API Endpoints
 
@@ -92,7 +151,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | DELETE | `/api/comments/:id`       | Delete a comment         |
 | POST   | `/api/votes`              | Vote on a post           |
 
-## Pages
+## Forum Pages
 
 - `/` — Home feed with all posts and popular sub-pages sidebar
 - `/subpages` — Browse all sub-pages
@@ -100,3 +159,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `/sp/:id/create-post` — Create a new post in a sub-page
 - `/post/:id` — View a post with comments and voting
 - `/create-subpage` — Create a new sub-page
+
+## Find Pages
+
+- `/` — Browse all categories with featured listings
+- `/jobs` — Job listings directory
+- `/businesses` — Business directory
+- `/events` — Networking events directory
