@@ -13,7 +13,13 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ARG NEXT_PUBLIC_API_URL=http://localhost:3001/api
+ARG NEXT_PUBLIC_MAIN_URL=http://localhost:3000
+ARG NEXT_PUBLIC_FIND_URL=http://localhost:3002
+ARG NEXT_PUBLIC_FORUM_URL=http://localhost:3003
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_MAIN_URL=$NEXT_PUBLIC_MAIN_URL
+ENV NEXT_PUBLIC_FIND_URL=$NEXT_PUBLIC_FIND_URL
+ENV NEXT_PUBLIC_FORUM_URL=$NEXT_PUBLIC_FORUM_URL
 
 RUN npm run build
 
@@ -32,9 +38,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 3003
 
-ENV PORT=3000
+ENV PORT=3003
 ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "server.js"]

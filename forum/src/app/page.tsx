@@ -60,7 +60,7 @@ export default async function HomePage() {
         </div>
 
         <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-          <h2 className="mb-2 font-semibold">About Som-Connect</h2>
+          <h2 className="mb-2 font-semibold">About SomConnect Forum</h2>
           <p className="text-sm text-gray-600 dark:text-gray-400">
             A modern community forum where you can create Sub-pages, share posts, comment, and vote.
           </p>

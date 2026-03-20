@@ -16,7 +16,7 @@ app.use(express.json());
 
 // Health check
 app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", name: "Som-Connect API" });
+  res.json({ status: "ok", name: "SomConnect API" });
 });
 
 // Routes
@@ -35,7 +35,7 @@ async function start() {
   try {
     await migrate();
     app.listen(PORT, () => {
-      console.log(`Som-Connect API running on http://localhost:${PORT}`);
+      console.log(`SomConnect API running on http://localhost:${PORT}`);
     });
   } catch (err) {
     console.error("Failed to start server:", err.message);
