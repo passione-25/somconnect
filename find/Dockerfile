@@ -4,7 +4,8 @@ FROM node:22-alpine AS base
 FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN --mount=type=cache,id=npm,sharing=locked,target=/root/.npm \
+    NODE_OPTIONS=--max-old-space-size=256 npm ci
 
 # --- Build ---
 FROM base AS builder
@@ -18,8 +19,11 @@ ARG NEXT_PUBLIC_FORUM_URL=http://localhost:3003
 ENV NEXT_PUBLIC_MAIN_URL=$NEXT_PUBLIC_MAIN_URL
 ENV NEXT_PUBLIC_FIND_URL=$NEXT_PUBLIC_FIND_URL
 ENV NEXT_PUBLIC_FORUM_URL=$NEXT_PUBLIC_FORUM_URL
+ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN npm run build
+RUN --mount=type=cache,id=npm,sharing=locked,target=/root/.npm \
+    --mount=type=cache,id=next-find,target=/app/.next/cache \
+    NODE_OPTIONS=--max-old-space-size=512 npm run build
 
 # --- Production ---
 FROM base AS runner
@@ -36,9 +40,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
-EXPOSE 3002
+EXPOSE 4729
 
-ENV PORT=3002
+ENV PORT=4729
 ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "server.js"]

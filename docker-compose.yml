@@ -32,39 +32,39 @@ services:
     build:
       context: ./main
       args:
-        NEXT_PUBLIC_MAIN_URL: http://localhost:3000
-        NEXT_PUBLIC_FIND_URL: http://localhost:3002
-        NEXT_PUBLIC_FORUM_URL: http://localhost:3003
+        NEXT_PUBLIC_MAIN_URL: http://localhost:8391
+        NEXT_PUBLIC_FIND_URL: http://localhost:4729
+        NEXT_PUBLIC_FORUM_URL: http://localhost:6183
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "8391:8391"
 
   find:
     build:
       context: ./find
       args:
-        NEXT_PUBLIC_MAIN_URL: http://localhost:3000
-        NEXT_PUBLIC_FIND_URL: http://localhost:3002
-        NEXT_PUBLIC_FORUM_URL: http://localhost:3003
+        NEXT_PUBLIC_MAIN_URL: http://localhost:8391
+        NEXT_PUBLIC_FIND_URL: http://localhost:4729
+        NEXT_PUBLIC_FORUM_URL: http://localhost:6183
     restart: unless-stopped
     ports:
-      - "3002:3002"
+      - "4729:4729"
 
   forum:
     build:
       context: ./forum
       args:
         NEXT_PUBLIC_API_URL: http://localhost:3001/api
-        NEXT_PUBLIC_MAIN_URL: http://localhost:3000
-        NEXT_PUBLIC_FIND_URL: http://localhost:3002
-        NEXT_PUBLIC_FORUM_URL: http://localhost:3003
+        NEXT_PUBLIC_MAIN_URL: http://localhost:8391
+        NEXT_PUBLIC_FIND_URL: http://localhost:4729
+        NEXT_PUBLIC_FORUM_URL: http://localhost:6183
     restart: unless-stopped
     depends_on:
       - backend
     environment:
       API_URL_INTERNAL: http://backend:3001/api
     ports:
-      - "3003:3003"
+      - "6183:6183"
 
 volumes:
   pgdata:
