@@ -4,7 +4,7 @@ require("dotenv").config();
 const pool = new Pool({
   connectionString:
     process.env.DATABASE_URL ||
-    "postgresql://somconnect:somconnect@localhost:5432/somconnect",
+    "postgresql://kulmi:kulmi@localhost:5432/kulmi",
 });
 
 module.exports = pool;

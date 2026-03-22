@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import ThemeProvider from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "SomConnect Find — Jobs, Businesses & Networking",
+  title: "Kulmi Find — Jobs, Businesses & Networking",
   description: "Find Somali professionals, jobs, businesses, and networking events. The premier directory for the Somali professional community.",
 };
 

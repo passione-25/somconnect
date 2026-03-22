@@ -1,34 +1,34 @@
-# SomConnect
+# Kulmi
 
 A multi-site platform connecting Somali professionals worldwide, built with **Next.js**, **Express.js**, and **PostgreSQL**.
 
 ## Platform Overview
 
-SomConnect consists of three interconnected websites, each running in its own container:
+Kulmi consists of three interconnected websites, each running in its own container:
 
 | Site | Port | Description |
 | ---- | ---- | ----------- |
-| **SomConnect Main** | 3000 | Landing page — introduces the platform and links to other sites |
-| **SomConnect Find** | 3002 | Listing directory — jobs, businesses, and networking events |
-| **SomConnect Forum** | 3003 | Community forum — sub-pages, posts, comments, and voting |
+| **Kulmi Main** | 3000 | Landing page — introduces the platform and links to other sites |
+| **Kulmi Find** | 3002 | Listing directory — jobs, businesses, and networking events |
+| **Kulmi Forum** | 3003 | Community forum — sub-pages, posts, comments, and voting |
 | **Backend API** | 3001 | Express.js REST API serving the Forum |
 
 A shared top navigation bar on every site allows users to switch between Main, Find, and Forum.
 
 ## Features
 
-### SomConnect Main (Landing Page)
+### Kulmi Main (Landing Page)
 - Hero section with platform introduction
 - Feature highlights (Jobs, Businesses, Networking)
 - Community stats and "How It Works" guide
 
-### SomConnect Find (Listing Directory)
+### Kulmi Find (Listing Directory)
 - **Jobs** — Browse job listings from Somali-owned companies
 - **Businesses** — Discover and support Somali-owned businesses
 - **Events** — Find networking events, conferences, and gatherings
 - Search and category filtering
 
-### SomConnect Forum (Community)
+### Kulmi Forum (Community)
 - **Sub-pages** — Create and browse topic-based community spaces
 - **Posts** — Share content within sub-pages with titles and body text
 - **Comments** — Discuss posts with a comment system
@@ -47,16 +47,16 @@ A shared top navigation bar on every site allows users to switch between Main, F
 ## Project Structure
 
 ```
-somconnect/
-├── main/              # SomConnect Main — landing page
+kulmi/
+├── main/              # Kulmi Main — landing page
 │   └── src/
 │       ├── app/       # App Router pages
 │       └── components/# UI components (SiteNav, ThemeProvider)
-├── find/              # SomConnect Find — listing directory
+├── find/              # Kulmi Find — listing directory
 │   └── src/
 │       ├── app/       # App Router pages (jobs, businesses, events)
 │       └── components/# UI components (Navbar, SiteNav, ThemeProvider)
-├── forum/             # SomConnect Forum — community forum
+├── forum/             # Kulmi Forum — community forum
 │   └── src/
 │       ├── app/       # App Router pages (posts, sub-pages)
 │       ├── components/# UI components (Navbar, SiteNav, PostCard, etc.)
@@ -81,9 +81,9 @@ docker compose up --build
 ```
 
 This starts all services:
-- **SomConnect Main** → [http://localhost:3000](http://localhost:3000)
-- **SomConnect Find** → [http://localhost:3002](http://localhost:3002)
-- **SomConnect Forum** → [http://localhost:3003](http://localhost:3003)
+- **Kulmi Main** → [http://localhost:3000](http://localhost:3000)
+- **Kulmi Find** → [http://localhost:3002](http://localhost:3002)
+- **Kulmi Forum** → [http://localhost:3003](http://localhost:3003)
 - **Backend API** → [http://localhost:3001](http://localhost:3001)
 
 ### Option 2: Local Development
@@ -96,8 +96,8 @@ This starts all services:
 #### 1. Database Setup
 
 ```bash
-sudo -u postgres psql -c "CREATE USER somconnect WITH PASSWORD 'somconnect';"
-sudo -u postgres psql -c "CREATE DATABASE somconnect OWNER somconnect;"
+sudo -u postgres psql -c "CREATE USER kulmi WITH PASSWORD 'kulmi';"
+sudo -u postgres psql -c "CREATE DATABASE kulmi OWNER kulmi;"
 ```
 
 #### 2. Backend Setup
