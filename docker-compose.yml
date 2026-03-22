@@ -3,15 +3,15 @@ services:
     image: postgres:17-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: somconnect
-      POSTGRES_PASSWORD: somconnect
-      POSTGRES_DB: somconnect
+      POSTGRES_USER: kulmi
+      POSTGRES_PASSWORD: kulmi
+      POSTGRES_DB: kulmi
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U somconnect"]
+      test: ["CMD-SHELL", "pg_isready -U kulmi"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -24,7 +24,7 @@ services:
         condition: service_healthy
     environment:
       PORT: 3001
-      DATABASE_URL: postgresql://somconnect:somconnect@db:5432/somconnect
+      DATABASE_URL: postgresql://kulmi:kulmi@db:5432/kulmi
     ports:
       - "3001:3001"
 

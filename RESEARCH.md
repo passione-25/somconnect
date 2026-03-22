@@ -1,4 +1,4 @@
-# Som-Connect: Research & Inspiration Analysis
+# Kulmi: Research & Inspiration Analysis
 
 ## 10 Modern Reddit-Type Forum Examples (Next.js / PostgreSQL Focus)
 
@@ -54,9 +54,9 @@
 
 ---
 
-## SWOT Analysis: Best Inspiration for Som-Connect
+## SWOT Analysis: Best Inspiration for Kulmi
 
-After evaluating all 10 examples, **Shreddit** and **AdeeshPerera Reddit-Clone** stand out as the best inspirations for Som-Connect due to their modern stack alignment (Next.js + PostgreSQL), clean architecture, and feature completeness. Below is a combined SWOT analysis:
+After evaluating all 10 examples, **Shreddit** and **AdeeshPerera Reddit-Clone** stand out as the best inspirations for Kulmi due to their modern stack alignment (Next.js + PostgreSQL), clean architecture, and feature completeness. Below is a combined SWOT analysis:
 
 ### Strengths
 - **Modern Tech Stack:** Uses the latest Next.js with Tailwind CSS, matching our target stack closely.
@@ -76,7 +76,7 @@ After evaluating all 10 examples, **Shreddit** and **AdeeshPerera Reddit-Clone**
 - **Limited Testing:** Many reference projects lack comprehensive test suites.
 
 ### Opportunities
-- **"Sub-pages" Differentiation:** Replace "subreddit" terminology with "Sub-pages" to create a unique identity for Som-Connect.
+- **"Sub-pages" Differentiation:** Replace "subreddit" terminology with "Sub-pages" to create a unique identity for Kulmi.
 - **Express.js Backend:** Using a dedicated Express.js backend (vs. Next.js API routes) allows for better scalability and microservice potential.
 - **Modern UI Libraries:** Leverage Tailwind CSS + shadcn/ui for a polished, accessible design system.
 - **PostgreSQL Advanced Features:** Use full-text search, JSON columns, and materialized views for performance.
@@ -94,9 +94,9 @@ After evaluating all 10 examples, **Shreddit** and **AdeeshPerera Reddit-Clone**
 
 ---
 
-## Design Decisions for Som-Connect
+## Design Decisions for Kulmi
 
-Based on this analysis, Som-Connect will:
+Based on this analysis, Kulmi will:
 
 1. **Use a separate Express.js backend** for better API design and future scalability
 2. **Adopt Tailwind CSS** for rapid, consistent UI development

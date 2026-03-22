@@ -116,7 +116,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-indigo-100 sm:text-xl">
-              SomConnect is the platform where Somali professionals find opportunities, grow their businesses, and build
+              Kulmi is the platform where Somali professionals find opportunities, grow their businesses, and build
               lasting connections across the globe.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -147,7 +147,7 @@ export default function Home() {
               Everything You Need to Succeed
             </h2>
             <p className="mt-4 text-lg text-foreground/60">
-              SomConnect brings together the tools and community you need to thrive professionally.
+              Kulmi brings together the tools and community you need to thrive professionally.
             </p>
           </div>
           <div className="mx-auto mt-16 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -213,7 +213,7 @@ export default function Home() {
             <CheckCircleIcon className="mx-auto mb-6 h-12 w-12 text-indigo-200" />
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ready to Connect?</h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
-              Join thousands of Somali professionals already using SomConnect to advance their careers and businesses.
+              Join thousands of Somali professionals already using Kulmi to advance their careers and businesses.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
@@ -241,7 +241,7 @@ export default function Home() {
           <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
             <div className="flex items-center gap-2 text-lg font-bold text-foreground">
               <GlobeIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-              SomConnect
+              Kulmi
             </div>
             <nav className="flex gap-6 text-sm text-foreground/60">
               <a href={FIND_URL} className="transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">
@@ -253,7 +253,7 @@ export default function Home() {
             </nav>
           </div>
           <div className="mt-8 text-center text-sm text-foreground/40">
-            &copy; {new Date().getFullYear()} SomConnect. All rights reserved.
+            &copy; {new Date().getFullYear()} Kulmi. All rights reserved.
           </div>
         </div>
       </footer>

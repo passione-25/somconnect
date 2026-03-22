@@ -5,7 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import ThemeProvider from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "SomConnect Forum",
+  title: "Kulmi Forum",
   description: "A modern community forum — share, discuss, and connect.",
 };
 
